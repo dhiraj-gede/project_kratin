@@ -1,7 +1,7 @@
 const express = require('express');
 const app  = require('./app');
 const mongoose = require('mongoose');
-const config = require('./config/config');
+const config = require('./src/config/config');
 
 const DB_URI = config.mongoose.url
 mongoose.set('strictQuery', false);

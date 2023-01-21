@@ -3,10 +3,10 @@ const cors = require('cors');
 const helmet = require("helmet");
 const compression = require('compression');
 const passport = require("passport");
-const { jwtStrategy } = require("./config/passport");
-const routes = require("./Routes/v1")
-const ApiError = require("./utils/ApiError");
-const {errorHandler} = require("./middlewares/error");
+const { jwtStrategy } = require("./src/config/passport");
+const routes = require("./src/Routes/v1")
+const ApiError = require("./src/utils/ApiError");
+const {errorHandler} = require("./src/middlewares/error");
 // set security HTTP headers - https://helmetjs.github.io/
 
 const app = express();
@@ -27,8 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //enable cors
+
+var corsOptions = {
+    origin: ['https://healify-dg.netlify.app',['http://localhost:3000/']],
+    optionsSuccessStatus: 200
+}
 app.use(cors());
-app.options("*",cors());
 
 // Initialize passport  "jwt" authentication strategy
 app.use(passport.initialize());
@@ -36,7 +40,7 @@ passport.use("jwt", jwtStrategy);
 
 
 // Reroute all API request starting with "/v1" route
-app.use("/v1", routes);
+app.use("/v1",cors(corsOptions), routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
