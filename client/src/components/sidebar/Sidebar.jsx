@@ -9,7 +9,6 @@ import { TbReportMedical } from "react-icons/tb";
 import { MdLogout } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import './sidebar.css'
-import DashboardContent from "../LandingPage/DashboardContent";
 
 
 
@@ -37,31 +36,31 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="sidebar">
-          <Link>
+          <Link to='dashboard'>
             <span>
               <BsFillGridFill />
             </span>
             <h3>Dashboard</h3>
           </Link>
-          <Link className="active">
+          <Link to="/profile" className="active">
             <span>
               <RiProfileLine />
             </span>
             <h3 >Profile</h3>
           </Link>
-          <Link>
+          <Link to="/prescriptions">
             <span>
               <FaClipboardList />
             </span>
             <h3>Prescriptions</h3>
           </Link>
-          <Link>
+          <Link to="/exercises">
             <span>
               <GiWeightLiftingUp />
             </span>
             <h3>Exercises</h3>
           </Link>
-          <Link>
+          <Link to="/reports">
             <span>
               <TbReportMedical />
             </span>

@@ -18,7 +18,7 @@ const verifyCallback = (req, res, reject) => async (err, user, info) => {
         reject(err)
       }
       req.user = user
-      resolve()
+      res()
 }
 
 const auth = async (req, res, next) => {

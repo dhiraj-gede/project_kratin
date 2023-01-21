@@ -29,22 +29,51 @@ const userSchema = mongoose.Schema({
                 );
             }
         },
+    },
+    userType: {
+        type: String,
+        default: config.default_userType,
+        validate(value) {
+            if (value != 'patient' && value != 'doctor' && value != 'admin') {
+                throw new Error(
+                    "invalid user type"
+                );
+            }
+        }
+    },
+    userData:{
+        weight: {
+            type: Number,
+            required: false,
+            trim: true,
+        },
+        height: {
+            type: Number,
+            required: false,
+            trim: true,
+        },
+    
+        image: {
+            type: String,
+            required: false,
+            trim: true,
+        },
     }
 },
-// Create createdAt and updatedAt fields automatically
-{
-  timestamps: true,
-})
+    // Create createdAt and updatedAt fields automatically
+    {
+        timestamps: true,
+    })
 
-userSchema.statics.isEmailTaken = async function(email){
-    const data = await this.findOne({ email});
+userSchema.statics.isEmailTaken = async function (email) {
+    const data = await this.findOne({ email });
     return !!data;
 }
 
-userSchema.methods.isPasswordMatch = async function(password){
+userSchema.methods.isPasswordMatch = async function (password) {
     return bcrypt.compare(password, this.password);
 }
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = {User};
+module.exports = { User };

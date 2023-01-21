@@ -11,7 +11,7 @@ function App() {
   return (
     <SnackbarProvider>
       <Routes >
-        <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="/*" element={<LandingPage/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/register2" element={<Sidebar/>}></Route>

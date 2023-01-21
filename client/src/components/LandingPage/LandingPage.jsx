@@ -8,11 +8,12 @@ const LandingPage = () => {
   return (
     <div>
       {localStorage.getItem("name") ? (
+
         <UserDashboard />
+        
       ) : (
         <>
           <Header />
-
           <DefaultDashboard />
         </>
       )}
