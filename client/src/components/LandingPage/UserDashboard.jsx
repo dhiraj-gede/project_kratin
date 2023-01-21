@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
-import Grid from "@mui/material/Unstable_Grid2";
 import DashboardContent from "./dashboardComponents/DashboardContent";
 import Sidebar from "../sidebar/Sidebar";
-import Login from "../Auth/Login";
 import { Route, Routes, useParams } from "react-router-dom";
 import Profile from "./dashboardComponents/Profile";
 import Prescriptions from "./dashboardComponents/Prescriptions";
 import Exercises from "./dashboardComponents/Exercises";
-import { RiProductHuntFill } from "react-icons/ri";
 import Reports from "./dashboardComponents/Reports";
 
 const style = {
