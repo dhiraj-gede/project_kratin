@@ -47,6 +47,7 @@ const UserDetailsModal = (props) => {
   };
 
   const putData = async () => {
+    
     const url = process.env.REACT_APP_BACKEND_ENDPOINT_API;
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -149,6 +150,8 @@ const UserDashboard = () => {
 
   const performAPICall = async () => {
     const url = process.env.REACT_APP_BACKEND_ENDPOINT_API;
+    console.log('APICall', url);
+
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     };
@@ -167,12 +170,10 @@ const UserDashboard = () => {
 
   useEffect(() => {
     handleUserData(); 
-    console.log(params)
-
   }, []);
   useEffect(() => {
     handleUserData();
-  }, [user]);
+  }, []);
 
   return (
     <div className="container">
