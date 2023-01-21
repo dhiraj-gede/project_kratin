@@ -1,27 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import Header from "../Header/Header";
+import Sidebar from "../sidebar/Sidebar";
+import DefaultDashboard from "./DefaultDashboard";
+import UserDashboard from "./UserDashboard";
 
 const LandingPage = () => {
   return (
     <div>
-        
-      Landing Page
-      <div className="btn">
+      {localStorage.getItem("name") ? (
+        <UserDashboard />
+      ) : (
+        <>
+          <Header />
 
-        <Link to='/login'>
-            <button>
-                Login
-            </button>
-        </Link>
-        <Link to='/register'>
-            <button>
-                Register
-            </button>
-        </Link>
-        </div>
-
+          <DefaultDashboard />
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
