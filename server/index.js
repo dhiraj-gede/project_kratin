@@ -7,7 +7,7 @@ const DB_URI = config.mongoose.url
 mongoose.set('strictQuery', false);
 
 
-mongoose.connect(DB_URI)
+mongoose.connect(DB_URI) 
 .then(()=>{
     console.log('connection established at ' + DB_URI)
 })
@@ -20,4 +20,4 @@ const PORT = config.port
 
 server.listen(PORT, ()=>{
     console.log('listening on port http://localhost:8082');
-})
+}) 
