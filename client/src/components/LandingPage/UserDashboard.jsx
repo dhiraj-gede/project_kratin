@@ -61,7 +61,6 @@ const UserDetailsModal = (props) => {
     console.log("data ", data);
   };
 
-  const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   const handleSubmit = (e) => {
     putData();
