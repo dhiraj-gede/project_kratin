@@ -55,7 +55,7 @@ const Login = () => {
       if (validateInput(formData)) {
         setForm((form) => ({ ...form, load: true }));
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_ENDPOINT_API}auth/login`,
+          `${process.env.REACT_APP_BACKEND_ENDPOINT_API}/auth/login`,
           { email: formData.email, password: formData.password }
         );
         console.log(response);

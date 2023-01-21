@@ -55,7 +55,7 @@ const UserDetailsModal = (props) => {
     const bodyParams = userData;
     console.log(bodyParams);
     const { data } = await axios.put(
-      url + "patient/" + localStorage.getItem("userId"),
+      url + "/patient/" + localStorage.getItem("userId"),
       bodyParams,
       config
     );
@@ -156,7 +156,7 @@ const UserDashboard = () => {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     };
     const { data } = await axios.get(
-      url + "patient/" + localStorage.getItem("userId"),
+      url + "/patient/" + localStorage.getItem("userId"),
       config
     );
     return await data;
