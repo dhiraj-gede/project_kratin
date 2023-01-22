@@ -2,10 +2,10 @@ import React from "react";
 import './profile.css'
 const Profile = () => {
   return (
-    <div class="main" style= {{position: 'relative', left: '50%', top:'50%', transform:'translate(-50%, -50%)'}}>
-      <div class="card" >
-        <div class="card-body">
-          <i class="fa fa-pen fa-xs edit"></i>
+    <div className="main" style= {{position: 'relative', left: '50%', top:'50%', transform:'translate(-50%, -50%)'}}>
+      <div className="card" >
+        <div className="card-body">
+          <i className="fa fa-pen fa-xs edit"></i>
           <table>
             <tbody>
               <tr>

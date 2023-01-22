@@ -62,7 +62,7 @@ const Header = ({ setExercises }) => {
 
   const performAPICall2 = async (extention) => {
     try {
-      const url = "https://17a5bc67-190d-4381-a7bd-8abcf7692c3f.mock.pstmn.io/";
+      const url = process.env.REACT_APP_BACKEND_ENDPOINT_API+'/exercise';
       const res = await axios.get(url + extention);
       setExercises(await res.data);
     } catch (err) {
