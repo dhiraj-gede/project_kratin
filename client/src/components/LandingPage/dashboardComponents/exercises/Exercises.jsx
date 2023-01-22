@@ -28,8 +28,15 @@ const Header = ({ setExercises }) => {
   };
   const performAPICall = async () => {
     try {
+      let headersList = { 
+        Accept: "*/*",
+        Authorization:
+          "Bearer "+localStorage.token,
+        "Content-Type": "application/json",
+      };
+
       let extention = "/";
-      const url = "https://17a5bc67-190d-4381-a7bd-8abcf7692c3f.mock.pstmn.io";
+      const url = process.env.REACT_APP_BACKEND_ENDPOINT_API + "/exercise";
       if (selectedBtn === "Body parts") {
         extention += "bodyPartList";
       } else if (selectedBtn === "Equipments") {
@@ -38,7 +45,32 @@ const Header = ({ setExercises }) => {
         extention += "targetList";
       }
 
-      const res = await axios.get(url + extention);
+      let gqlBody = {
+        query: `{
+        Page {
+          media {
+            siteUrl
+            title {
+              english
+              native
+            }
+            description
+          }
+        }
+      }`,
+        variables: "{}",
+      };
+
+      let bodyContent = JSON.stringify(gqlBody);
+
+      let reqOptions = {
+        url: url  + extention,
+        method: "GET",
+        headers: headersList,
+        data: bodyContent,
+      };
+
+      let res = await axios.request(reqOptions);
 
       if (selectedBtn !== "All") {
         setFilters(await res.data);
@@ -52,19 +84,51 @@ const Header = ({ setExercises }) => {
 
   const handleSelectFilter = (filter) => {
     if (selectedBtn === "Body parts") {
-      setSelectedFilter({ name: "bodypart", type: filter });
+      setSelectedFilter({ name: "/bodypart", type: filter });
     } else if (selectedBtn === "Equipments") {
-      setSelectedFilter({ name: "equipment", type: filter });
+      setSelectedFilter({ name: "/equipment", type: filter });
     } else if (selectedBtn === "Muscles") {
-      setSelectedFilter({ name: "target", type: filter });
+      setSelectedFilter({ name: "/target", type: filter });
     }
   };
 
   const performAPICall2 = async (extention) => {
     try {
-      const url = process.env.REACT_APP_BACKEND_ENDPOINT_API+'/exercise';
-      const res = await axios.get(url + extention);
-      setExercises(await res.data);
+      const url = process.env.REACT_APP_BACKEND_ENDPOINT_API + "/exercise";
+      let gqlBody = {
+        query: `{
+        Page {
+          media {
+            siteUrl
+            title {
+              english
+              native
+            }
+            description
+          }
+        }
+      }`,
+        variables: "{}",
+      };
+
+      let bodyContent = JSON.stringify(gqlBody);
+      let headersList = {
+        Accept: "*/*",
+        Authorization:
+          "Bearer "+localStorage.token,
+        "Content-Type": "application/json",
+      };
+      console.log(url  + extention)
+
+      let reqOptions = {
+        url: url  + extention,
+        method: "GET",
+        headers: headersList,
+        data: bodyContent,
+      };
+
+      let res = await axios.request(reqOptions);
+      setExercises(await res.data)
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +137,7 @@ const Header = ({ setExercises }) => {
   useEffect(() => {
     const extention = selectedFilter.name + "/" + selectedFilter.type;
     performAPICall2(extention);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilter]);
 
   useEffect(() => {
@@ -120,34 +184,37 @@ const Header = ({ setExercises }) => {
   );
 };
 
-const MediaCard = ({item}) => {
- 
+const MediaCard = ({ item }) => {
   return (
-    <Card sx={{ minWidth:350, minHeight: 350,  maxHeight: 430, background: "gray" }}>
+    <Card
+      sx={{ minWidth: 350, minHeight: 350, maxHeight: 430, background: "gray" }}
+    >
       <CardMedia
-      className="img_gif"
+        className="img_gif"
         component="img"
         height="320"
-        image={item.gifUrl|| ''}
-        alt={item.name|| ''}
-        
+        image={item.gifUrl || ""}
+        alt={item.name || ""}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div" style={{textAlign:'center'}}>
-           {item.name.toUpperCase()} 
-        </Typography> 
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          style={{ textAlign: "center" }}
+        >
+          {item.name.toUpperCase()}
+        </Typography>
       </CardContent>
-      <CardActions style={{display: 'flex', justifyContent:'space-around'}}>
-       
+      <CardActions style={{ display: "flex", justifyContent: "space-around" }}>
         <Typography variant="h5" color="text.secondary">
-           Target: {item.bodyPart.toUpperCase()}
+          Target: {item.bodyPart.toUpperCase()}
         </Typography>
         <Typography variant="h5" color="text.secondary">
           Equipment: {item.equipment.toUpperCase()}
         </Typography>
       </CardActions>
     </Card>
-    
   );
 };
 
@@ -161,10 +228,14 @@ const Exercises = () => {
     <Box>
       <Header setExercises={setExercises} />
       <Box sx={{ flexGrow: 1, p: 3 }}>
-      {/* <MediaCard item={exercises[0]} /> */}
-        <Grid container spacing={3} style={{maxHeight:'88vh', overflow:'auto'}}>
+        {/* <MediaCard item={exercises[0]} /> */}
+        <Grid
+          container
+          spacing={3}
+          style={{ maxHeight: "88vh", overflow: "auto" }}
+        >
           {exercises.map((item, index) => (
-            <Grid item lg={4} sm={12}  key={item.id}>
+            <Grid item lg={4} sm={12} key={item.id}>
               <MediaCard item={item} />
             </Grid>
           ))}
