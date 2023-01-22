@@ -142,6 +142,7 @@ const Header = ({ setExercises }) => {
 
   useEffect(() => {
     performAPICall();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBtn]);
   return (
     <nav className="Exercises">
