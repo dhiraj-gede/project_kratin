@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../Header/Header";
-import Sidebar from "../sidebar/Sidebar";
 import DefaultDashboard from "./DefaultDashboard";
 import UserDashboard from "./UserDashboard";
 
